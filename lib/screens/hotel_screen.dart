@@ -15,7 +15,7 @@ class HotelScreen extends StatelessWidget {
     return Container(
       //60% man hinh
       width: size.width*0.6,
-      height: 350,
+      height: AppLayout.getHeight(350),
       //khoang cach giua 2 hinh
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 17),
       //khoang cach ben ngoai
@@ -40,7 +40,7 @@ class HotelScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 180,
+            height: AppLayout.getHeight(180),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Styles.primaryColor,
@@ -54,8 +54,8 @@ class HotelScreen extends StatelessWidget {
           ),
           const Gap(10),
           Text(
-          hotel['place'],
-          style: Styles.headLineStyle2.copyWith(color: Styles.kakiColor),
+            hotel['place'],
+            style: Styles.headLineStyle2.copyWith(color: Styles.kakiColor),
           ),
           const Gap(5),
           Text(
