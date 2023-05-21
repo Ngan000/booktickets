@@ -16,6 +16,8 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Styles.bgColor,
       body: ListView(
+        shrinkWrap: true,
+
         padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20), vertical: AppLayout.getHeight(20)),
         children: [
           Gap(AppLayout.getHeight(40)),
@@ -137,20 +139,25 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    //vòng tròn icon phía trước
-                    CircleAvatar(
-                      child: Icon(FluentSystemIcons.ic_fluent_lightbulb_filament_filled,
-                      color: Styles.primaryColor, size: 27,),
-                      maxRadius: 25,
-                      backgroundColor: Colors.white,
+                    Expanded(
+                      flex: 1,
+                      //vòng tròn icon phía trước
+                        child: CircleAvatar(
+                          child: Icon(FluentSystemIcons.ic_fluent_lightbulb_filament_filled,
+                            color: Styles.primaryColor, size: 27,),
+                          maxRadius: 25,
+                          backgroundColor: Colors.white,
+                        ),
                     ),
                     Gap(AppLayout.getHeight(12)),
-                    Column(
+                    Expanded(
+                      flex: 5,
+                      child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("You\ 'v got a new award",
-                        style: Styles.headLineStyle2.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                        Text("You\'v got a new award",
+                          style: Styles.headLineStyle2.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                         Text("You have 95 flights in a year",
                           style: Styles.headLineStyle2.copyWith(
@@ -160,7 +167,11 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    ),),
+
+
+
+
                   ],
                 ),
               )
