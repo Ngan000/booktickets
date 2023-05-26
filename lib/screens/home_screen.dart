@@ -1,4 +1,5 @@
 import 'package:booktickets/screens/hotel_screen.dart';
+import 'package:booktickets/screens/search_screen.dart';
 import 'package:booktickets/screens/ticket_view.dart';
 import 'package:booktickets/utils/app_info_list.dart';
 import 'package:booktickets/utils/app_styles.dart';
@@ -7,6 +8,8 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+
+import 'flight_all_screen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -76,7 +79,26 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Gap(40),
                 // goi toi AppDoubleTextWidget trong double_text_widget de su dung lai
-                const AppDoubleTextWidget(bigText: "Upcoming flight", smallText: "View all"),
+                //const AppDoubleTextWidget(bigText: "Upcoming flight", smallText: ""),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: const AppDoubleTextWidget(bigText: "Upcoming flight", smallText: ""),
+                    ),
+                    InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FlightAllScreen()),
+                          );
+                          print("You are tapped");
+                        },
+                        child: Text("View all", style: Styles.textStyle.copyWith(color: Styles.primaryColor)),
+                    ),
+                  ],
+                ),
                 
               ],
             ),
