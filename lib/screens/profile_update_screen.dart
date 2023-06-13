@@ -1,7 +1,8 @@
-import 'package:booktickets/screens/Login_Screen.dart';
+
+import 'package:booktickets/screens/login_screen.dart';
 import 'package:booktickets/utils/app_layout.dart';
 import 'package:booktickets/utils/app_styles.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

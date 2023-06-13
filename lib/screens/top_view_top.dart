@@ -1,5 +1,6 @@
 import 'package:booktickets/utils/app_layout.dart';
 import 'package:booktickets/utils/app_styles.dart';
+import 'package:booktickets/utils/util.dart';
 import 'package:booktickets/widgets/column_layout.dart';
 import 'package:booktickets/widgets/layout_builder_widget.dart';
 import 'package:booktickets/widgets/thick_container.dart';
@@ -8,23 +9,35 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_utils/get_utils.dart';
 
-class TicketTop extends StatelessWidget {
-  final Map<String, dynamic> ticket;
+import '../data_sources/api_name_services.dart';
+import '../data_sources/api_services.dart';
+import '../model/name.dart';
+import '../model/post.dart';
+
+class TicketTopTop extends StatelessWidget {
+  Data? data;
+  String? originName;
+  String? destinationName;
+  String? originCode;
+  String? duration;
+  //final Map<String, dynamic> ticket;
   final bool? isColor;
-  const TicketTop({Key? key, required this.ticket, this.isColor})
+  TicketTopTop(
+      {Key? key,
+      this.isColor,
+      required this.originName,
+      this.destinationName,
+      required this.originCode,
+      this.duration,
+      required this.data})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return SizedBox(
-      // su dung 85% man hinh
-      //width: size.width*0.85,
-      //height: AppLayout.getHeight(GetPlatform.isAndroid==true?167:169),
       child: Container(
-        //margin:  EdgeInsets.only(right: AppLayout.getHeight(16)),
         child: Column(
-          //mainAxisSize: MainAxisSize.min,
           children: [
             // showing the blue part of the card/ticket
             Container(
@@ -38,7 +51,7 @@ class TicketTop extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        ticket['from']['code'],
+                        originCode ?? '',
                         style: isColor == null
                             ? Styles.headLineStyle3
                                 .copyWith(color: Colors.white)
@@ -71,7 +84,7 @@ class TicketTop extends StatelessWidget {
                       Expanded(
                         child: Container(),
                       ),
-                      Text(ticket['to']['code'],
+                      Text(data!.destination,
                           style: isColor == null
                               ? Styles.headLineStyle3
                                   .copyWith(color: Colors.white)
@@ -84,30 +97,43 @@ class TicketTop extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: AppLayout.getWidth(100),
-                        child: Text(
-                          ticket['from']['name'],
-                          style: isColor == null
-                              ? Styles.headLineStyle4
-                                  .copyWith(color: Colors.white)
-                              : Styles.headLineStyle4,
-                        ),
+                          width: AppLayout.getWidth(100),
+                          child: Text(originName ?? '',
+                              style: isColor == null
+                                  ? Styles.headLineStyle3
+                                      .copyWith(color: Colors.white)
+                                  : Styles.headLineStyle3)),
+                      Text(
+                        duration ?? '',
+                        style:
+                            Styles.headLineStyle3.copyWith(color: Colors.white),
                       ),
-                      Text(ticket['flying_time'],
-                          style: isColor == null
+                      // cách viết ngày giờ
+                      /*Text(
+                          Util.converDateTimeToString(
+                              widget.data!.returnAt, 'dd MMM'),
+                          style: widget.isColor == null
                               ? Styles.headLineStyle4
                                   .copyWith(color: Colors.white)
                               : Styles.headLineStyle4),
+                      */
+                      // Text(
+                      //   duration ?? '',
+                      //   style: isColor == null
+                      //       ? Styles.headLineStyle3
+                      //           .copyWith(color: Colors.white)
+                      //       : Styles.headLineStyle3,
+                      // ),
                       SizedBox(
                         width: AppLayout.getWidth(100),
                         child: Text(
-                          ticket['to']['name'],
+                          destinationName ?? '',
                           //textAlign can chinh van ban
                           textAlign: TextAlign.end,
                           style: isColor == null
-                              ? Styles.headLineStyle4
+                              ? Styles.headLineStyle3
                                   .copyWith(color: Colors.white)
-                              : Styles.headLineStyle4,
+                              : Styles.headLineStyle3,
                         ),
                       ),
                     ],

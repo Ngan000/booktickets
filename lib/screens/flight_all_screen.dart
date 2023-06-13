@@ -1,10 +1,14 @@
 import 'dart:convert';
 
-import 'package:booktickets/network/network_request.dart';
+import 'package:booktickets/data_sources/api_services.dart';
+import 'package:booktickets/model/name.dart';
+import 'package:booktickets/services/datetime.dart';
+import 'package:booktickets/screens/top_view_top.dart';
 import 'package:booktickets/screens/view_top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../data_sources/api_name_services.dart';
 import '../model/post.dart';
 import '../utils/app_info_list.dart';
 import '../utils/app_layout.dart';
@@ -18,76 +22,81 @@ class FlightAllScreen extends StatefulWidget {
 }
 
 class _FlightAllScreenState extends State<FlightAllScreen> {
-  late List<Data> datas;
-  var isLoaded = false;
+  Data? data;
+  List<City>? _listCity;
+  //var isLoaded = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
-    //fetch data from API
-    getData();
+    WidgetsBinding.instance.addPostFrameCallback(onReady);
   }
 
-  getData() async{
-    datas = (await NetworkRequest().getData())!;
-    if(datas != null){
-      setState(() {
-        isLoaded= true;
-      });
-    }
+  void onReady(Duration timeStamp) {
+    getName();
   }
-  
-  
+
+  getName() async {
+    var data = await ApiNameService.nameUser();
+    print(data);
+
+    setState(() {
+      _listCity = data;
+    });
+  }
+
+  Future<List<Data>> getData() {
+    return ApiServices.flightUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Styles.bgColor,
-      body: ListView.builder(
-        itemCount: datas?.length,
-        itemBuilder: (context,index){
-          return Container(
-            child: Text("hi"),
-          );
-        }
-
-        /*
-
-        padding: EdgeInsets.symmetric(horizontal: AppLayout.getHeight(40),
-            vertical: AppLayout.getHeight(40)
+        appBar: AppBar(
+          title: Text('All flights'),
+          centerTitle: true,
         ),
-        children: [
-          Column(
-            children: [
-              Text("ALL LIGHT", style: Styles.headLineStyle1,)
-            ],
-          ),
-          Gap(AppLayout.getHeight(20)),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
+        backgroundColor: Styles.bgColor,
+        body: Container(
+          child: FutureBuilder<List<Data>>(
+              future: getData(),
+              builder: (context, snapshot) {
+                print(snapshot.connectionState);
+                if ((snapshot.hasError) || (!snapshot.hasData))
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                List<Data>? dataList = snapshot.data;
+                return ListView.builder(
+                    itemCount: dataList!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      City? city = _listCity?.firstWhere(
+                        (element) => element.code == dataList[index].origin,
+                      );
+                      City? city1 = _listCity?.firstWhere(
+                        (element) =>
+                            element.code == dataList[index].destination,
+                      );
+                      DateTime departureTime = dataList[index].departureAt;
+                      DateTime arrivalTime = dataList[index].returnAt;
+                      Duration flightDuration =
+                          Duration(minutes: dataList[index].durationTo);
 
-                child: Text(
-                  "List all flight",
-                  style: Styles.headLineStyle3,
-                ),
-              )
-
-            ],
-          ),
-          Gap(AppLayout.getHeight(20)),
-          Column(
-            children: ticketList.map((singleTicket) => TicketTop(ticket: singleTicket,)).toList(),
-          ),
-          Gap(AppLayout.getHeight(20)),
-          Column(
-            children: ticketList.map((singleTicket) => TicketTop(ticket: singleTicket,)).toList(),
-          ),
-        ],
-
-        */
-      ),
-    );
+                      return TicketTopTop(
+                        data: dataList[index],
+                        originName: city != null ? city.name : '',
+                        destinationName: city1 != null ? city1.name : '',
+                        originCode: dataList[index].origin,
+                        duration:
+                            '${flightDuration.inHours}H ${flightDuration.inMinutes.remainder(60)}M',
+                      );
+                      // Container(
+                      //   child: Text('${dataList[index]}'),
+                      // );
+                    });
+              }),
+        ));
   }
 }
