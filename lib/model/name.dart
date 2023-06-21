@@ -1,101 +1,82 @@
 class City {
-  String? countryCode;
-  String? code;
-  Coordinates? coordinates;
-  String? name;
-  String? timeZone;
-  NameTranslations? nameTranslations;
-  Cases? cases;
+  final String countryCode;
+  final String code;
+  final Coordinates coordinates;
+  final String name;
+  final String timeZone;
+  final NameTranslations nameTranslations;
 
   City(
-      {this.countryCode,
-      this.code,
-      this.coordinates,
-      this.name,
-      this.timeZone,
-      this.nameTranslations,
-      this.cases});
+      {required this.countryCode,
+      required this.code,
+      required this.coordinates,
+      required this.name,
+      required this.timeZone,
+      required this.nameTranslations});
 
-  City.fromJson(Map<String, dynamic> json) {
-    countryCode = json['country_code'];
-    code = json['code'];
-    coordinates = json['coordinates'] != null
-        ? new Coordinates.fromJson(json['coordinates'])
-        : null;
-    name = json['name'];
-    timeZone = json['time_zone'];
-    nameTranslations = json['name_translations'] != null
-        ? new NameTranslations.fromJson(json['name_translations'])
-        : null;
-    cases = json['cases'] != null ? new Cases.fromJson(json['cases']) : null;
+  factory City.fromJson(Map<String, dynamic> json) {
+    final countryCode = json['country_code'] ?? '';
+    final code = json['code'] ?? '';
+    final coordinates = Coordinates.fromJson(json['coordinates']);
+    final name = json['name'] ?? '';
+    final timeZone = json['time_zone'] ?? '';
+    final nameTranslations =
+        NameTranslations.fromJson(json['name_translations']);
+
+    return City(
+        countryCode: countryCode,
+        code: code,
+        coordinates: coordinates,
+        name: name,
+        timeZone: timeZone,
+        nameTranslations: nameTranslations);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['country_code'] = this.countryCode;
-    data['code'] = this.code;
-    if (this.coordinates != null) {
-      data['coordinates'] = this.coordinates!.toJson();
-    }
-    data['name'] = this.name;
-    data['time_zone'] = this.timeZone;
-    if (this.nameTranslations != null) {
-      data['name_translations'] = this.nameTranslations!.toJson();
-    }
-    if (this.cases != null) {
-      data['cases'] = this.cases!.toJson();
-    }
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['country_code'] = countryCode;
+    data['code'] = code;
+    data['coordinates'] = coordinates.toJson();
+    data['name'] = name;
+    data['time_zone'] = timeZone;
+    data['name_translations'] = nameTranslations.toJson();
     return data;
   }
 }
 
 class Coordinates {
-  double? lat;
-  double? lon;
+  final double lat;
+  final double lon;
 
-  Coordinates({this.lat, this.lon});
+  Coordinates({required this.lat, required this.lon});
 
-  Coordinates.fromJson(Map<String, dynamic> json) {
-    lat = double.tryParse(json['lat'].toString());
-    lon = double.tryParse(json['lon'].toString());
+  factory Coordinates.fromJson(Map<String, dynamic> json) {
+    final lat = json['lat'] * 1.0 ?? 0.1;
+    final lon = json['lon'] * 1.0 ?? 0.1;
+    return Coordinates(lat: lat, lon: lon);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lon'] = this.lon;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['lon'] = lon;
     return data;
   }
 }
 
 class NameTranslations {
-  String? en;
+  final String en;
 
-  NameTranslations({this.en});
+  NameTranslations({required this.en});
 
-  NameTranslations.fromJson(Map<String, dynamic> json) {
-    en = json['en'];
+  factory NameTranslations.fromJson(Map<String, dynamic> json) {
+    final en = json['en'] ?? '';
+    return NameTranslations(en: en);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['en'] = this.en;
-    return data;
-  }
-}
-
-class Cases {
-  String? su;
-
-  Cases({this.su});
-
-  Cases.fromJson(Map<String, dynamic> json) {
-    su = json['su'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['su'] = this.su;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['en'] = en;
     return data;
   }
 }

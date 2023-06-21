@@ -1,5 +1,4 @@
-
-import 'package:booktickets/screens/login_screen.dart';
+import 'package:booktickets/screens/profile/login_screen.dart';
 import 'package:booktickets/utils/app_layout.dart';
 import 'package:booktickets/utils/app_styles.dart';
 
@@ -20,35 +19,35 @@ class ProfileUpdateScreen extends StatelessWidget {
           Container(
             child: Row(
               children: [
-
                 Expanded(
-                  flex:2,
-                  child:Container(
+                  flex: 2,
+                  child: Container(
                     height: 120,
                     width: 150,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: const DecorationImage(
                             fit: BoxFit.fitHeight,
-                            image: AssetImage("assets/images/img_1.png")
-                        )
-                    ),
+                            image: AssetImage("assets/images/img_1.png"))),
                   ),
                 ),
                 Gap(AppLayout.getHeight(10)),
                 Expanded(
                     flex: 5,
-                    child:Container(
-                      child: Text("Book tickets", style: Styles.headLineStyle1,),
-                    ) )
+                    child: Container(
+                      child: Text(
+                        "Book tickets",
+                        style: Styles.headLineStyle1,
+                      ),
+                    ))
               ],
             ),
-
           ),
-
           Gap(AppLayout.getHeight(80)),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: AppLayout.getHeight(40),),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppLayout.getHeight(40),
+            ),
             child: Column(
               children: [
                 Column(
@@ -66,12 +65,13 @@ class ProfileUpdateScreen extends StatelessWidget {
                             );
                           },
                           child: Text("Login",
-                              style: Styles.textStyle
-                                  .copyWith(color: Colors.black38, fontSize: 30, fontWeight: FontWeight.bold )),
+                              style: Styles.textStyle.copyWith(
+                                  color: Colors.black38,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
-
                     Gap(AppLayout.getHeight(30)),
                     Container(
                       child: SizedBox(
@@ -80,8 +80,10 @@ class ProfileUpdateScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           child: Text("Register",
-                              style: Styles.textStyle
-                                  .copyWith(color: Colors.black38, fontSize: 30, fontWeight: FontWeight.bold)),
+                              style: Styles.textStyle.copyWith(
+                                  color: Colors.black38,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
@@ -91,24 +93,24 @@ class ProfileUpdateScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 60,
                         child: ElevatedButton(
-                          onPressed: (
-                              ) {},
-                          child: Text("About",
-                            style: Styles.textStyle
-                                .copyWith(color: Colors.black38, fontSize: 30, fontWeight: FontWeight.bold),
+                          onPressed: () {},
+                          child: Text(
+                            "About",
+                            style: Styles.textStyle.copyWith(
+                                color: Colors.black38,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                     )
                   ],
-                )],
+                )
+              ],
             ),
-
           ),
         ],
       ),
     );
   }
 }
-
-

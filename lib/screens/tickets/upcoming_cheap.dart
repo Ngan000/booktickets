@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../model/cheap.dart';
-import '../utils/app_layout.dart';
-import '../utils/app_styles.dart';
-import '../widgets/layout_builder_widget.dart';
-import '../widgets/thick_container.dart';
+import 'package:booktickets/model/cheap.dart';
+import 'package:booktickets/utils/app_layout.dart';
+import 'package:booktickets/utils/app_styles.dart';
+import 'package:booktickets/widgets/layout_builder_widget.dart';
+import 'package:booktickets/widgets/thick_container.dart';
 
 class UpcomingCheap extends StatelessWidget {
   final bool? isColor;
@@ -121,16 +121,5 @@ class UpcomingCheap extends StatelessWidget {
         ],
       ),
     );
-    // return Container(
-    //     child: Column(
-    //   children: [
-    //     // Text(cheap?.data['2023-06-12']?.origin ?? ''),
-    //     // Text(cheap?.data['2023-06-13']?.origin ?? ''),
-    //     // Text(cheap?.data['2023-06-14']?.origin ?? ''),
-    //     // Text(cheap?.data['2023-06-15']?.origin ?? ''),
-    //     // Text(cheap?.data['2023-06-16']?.origin ?? ''),
-    //     //Text(),
-    //   ],
-    // ));
   }
 }

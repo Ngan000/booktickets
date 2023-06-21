@@ -6,10 +6,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gap/gap.dart';
 
-import '../data_sources/api_services.dart';
-import '../model/post.dart';
-import '../utils/app_layout.dart';
-import '../widgets/layout_builder_widget.dart';
+import '../../data_sources/api_services.dart';
+import '../../model/post.dart';
+import '../../utils/app_layout.dart';
+import '../../widgets/layout_builder_widget.dart';
 
 class DepartureScreen extends StatefulWidget {
   const DepartureScreen({super.key});
@@ -19,6 +19,8 @@ class DepartureScreen extends StatefulWidget {
 }
 
 class _DepartureScreenState extends State<DepartureScreen> {
+  DateTime selectedDate = DateTime.now();
+
   City? _city;
   List<City>? _listCity;
   @override
@@ -33,7 +35,7 @@ class _DepartureScreenState extends State<DepartureScreen> {
   }
 
   getName() async {
-    var data = await ApiNameService.nameUser();
+    var data = await ApiNameService.nameUserFind();
     print(data);
 
     setState(() {
@@ -42,7 +44,7 @@ class _DepartureScreenState extends State<DepartureScreen> {
   }
 
   Future<List<City>> getData() {
-    return ApiNameService.nameUser();
+    return ApiNameService.nameUserFind();
   }
 
   @override
@@ -93,29 +95,34 @@ class ArrivalUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Gap(AppLayout.getHeight(10)),
-            Container(
-              child: Text(
-                code ?? '',
-                style: Styles.headLineStyle3,
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context, city);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Gap(AppLayout.getHeight(10)),
+              Container(
+                child: Text(
+                  code ?? '',
+                  style: Styles.headLineStyle3,
+                ),
               ),
-            ),
-            Gap(AppLayout.getHeight(5)),
-            Container(
-              child: Text(name ?? ''),
-            ),
-            const AppLayoutBuilderWidget(
-              sections: 15,
-              isColor: false,
-              width: 5,
-            ),
-          ]),
+              Gap(AppLayout.getHeight(5)),
+              Container(
+                child: Text(name ?? ''),
+              ),
+              const AppLayoutBuilderWidget(
+                sections: 15,
+                isColor: false,
+                width: 5,
+              ),
+            ]),
+      ),
     );
   }
 }

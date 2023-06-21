@@ -1,6 +1,6 @@
-import 'package:booktickets/screens/hotel_screen.dart';
-import 'package:booktickets/screens/search_screen.dart';
-import 'package:booktickets/screens/ticket_view.dart';
+import 'package:booktickets/screens/home/hotel_screen.dart';
+import 'package:booktickets/screens/search/search_screen.dart';
+import 'package:booktickets/screens/tickets/ticket_view.dart';
 import 'package:booktickets/utils/app_info_list.dart';
 import 'package:booktickets/utils/app_styles.dart';
 import 'package:booktickets/widgets/double_text_widget.dart';
@@ -12,7 +12,6 @@ import 'package:gap/gap.dart';
 import 'flight_all_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -22,7 +21,9 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 20, right: 20), //const EdgeInsets.symmetric(horizontal: 20)
+            padding: const EdgeInsets.only(
+                left: 20,
+                right: 20), //const EdgeInsets.symmetric(horizontal: 20)
             child: Column(
               children: [
                 const Gap(40),
@@ -33,15 +34,15 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            "Good morning",
-                            style: Styles.headLineStyle3,
+                          "Good morning",
+                          style: Styles.headLineStyle3,
                         ),
                         //khoang cach giua 2 dong: SizedBox(height: 5,),
                         const Gap(5),
 
                         Text(
-                            "Book Tickets",
-                            style: Styles.headLineStyle1,
+                          "Book Tickets",
+                          style: Styles.headLineStyle1,
                         ),
                       ],
                     ),
@@ -49,12 +50,10 @@ class HomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          fit: BoxFit.fitHeight,
-                          image: AssetImage("assets/images/img_1.png")
-                        )
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          image: const DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: AssetImage("assets/images/img_1.png"))),
                     ),
                   ],
                 ),
@@ -64,10 +63,12 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xFFF4F6FD),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   child: Row(
                     children: [
-                      const Icon(FluentSystemIcons.ic_fluent_search_regular,
+                      const Icon(
+                        FluentSystemIcons.ic_fluent_search_regular,
                         color: Color(0xFFBFC205),
                       ),
                       Text(
@@ -84,22 +85,24 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: const AppDoubleTextWidget(bigText: "Upcoming flight", smallText: ""),
+                      child: const AppDoubleTextWidget(
+                          bigText: "Upcoming flight", smallText: ""),
                     ),
                     InkWell(
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FlightAllScreen()),
-                          );
-                          print("You are tapped");
-                        },
-                        child: Text("View all", style: Styles.textStyle.copyWith(color: Styles.primaryColor)),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FlightAllScreen()),
+                        );
+                        print("You are tapped");
+                      },
+                      child: Text("View all",
+                          style: Styles.textStyle
+                              .copyWith(color: Styles.primaryColor)),
                     ),
                   ],
                 ),
-                
               ],
             ),
           ),
@@ -109,23 +112,28 @@ class HomeScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.only(left: 20),
             child: Row(
-              children: ticketList.map((singleTicket) => TicketView(ticket: singleTicket,)).toList(),
+              children: ticketList
+                  .map((singleTicket) => TicketView(
+                        ticket: singleTicket,
+                      ))
+                  .toList(),
             ),
           ),
           const Gap(15),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const AppDoubleTextWidget(bigText: "Hotels", smallText: "View all"),
+            child: const AppDoubleTextWidget(
+                bigText: "Hotels", smallText: "View all"),
           ),
           const Gap(15),
           SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: hotelList.map((singlehotel) => HotelScreen(hotel: singlehotel)).toList()
-              ),
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+                children: hotelList
+                    .map((singlehotel) => HotelScreen(hotel: singlehotel))
+                    .toList()),
           ),
-
         ],
       ),
     );

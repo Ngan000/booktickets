@@ -1,5 +1,5 @@
-import 'package:booktickets/screens/home_screen.dart';
-import 'package:booktickets/screens/profile_update_screen.dart';
+import 'package:booktickets/screens/home/home_screen.dart';
+import 'package:booktickets/screens/profile/profile_update_screen.dart';
 import 'package:booktickets/utils/app_layout.dart';
 import 'package:booktickets/utils/app_styles.dart';
 import 'package:booktickets/widgets/background_widget.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import '../widgets/text_input.dart';
-import '../widgets/password.dart';
+import 'package:booktickets/widgets/text_input.dart';
+import 'package:booktickets/widgets/password.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,19 +25,22 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               children: [
                 Gap(AppLayout.getHeight(20)),
-                Container(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfileUpdateScreen()),
-                      );
-                      print("You are tapped");
-                    },
-                    child: const Icon(Icons.keyboard_return),
-                    //FluentSystemIcons.ic_fluent_backspace_filled),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUpdateScreen()),
+                        );
+                        print("You are tapped");
+                      },
+                      child: const Icon(Icons.keyboard_return),
+                      //FluentSystemIcons.ic_fluent_backspace_filled),
+                    ),
+                  ],
                 ),
                 Container(
                   child: Column(
@@ -93,9 +96,13 @@ class LoginScreen extends StatelessWidget {
                                 Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: FloatingActionButton(
+                                      //color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20))),
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -103,8 +110,12 @@ class LoginScreen extends StatelessWidget {
                                               builder: (context) =>
                                                   const HomeScreen()));
                                     },
-                                    child: Text('SUBMIT',
-                                        style: Styles.headLineStyle3),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15),
+                                      child: Text('SUBMIT',
+                                          style: Styles.headLineStyle3),
+                                    ),
                                   ),
                                 ),
                                 Container(

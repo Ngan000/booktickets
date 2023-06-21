@@ -1,5 +1,5 @@
-import 'package:booktickets/screens/ticket_view.dart';
-import 'package:booktickets/screens/upcoming_screen.dart';
+import 'package:booktickets/screens/tickets/ticket_view.dart';
+import 'package:booktickets/screens/tickets/upcoming_screen.dart';
 import 'package:booktickets/utils/app_info_list.dart';
 import 'package:booktickets/utils/app_layout.dart';
 import 'package:booktickets/utils/app_styles.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../widgets/layout_builder_widget.dart';
+import '../../widgets/layout_builder_widget.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
 class TicketScreen extends StatelessWidget {
